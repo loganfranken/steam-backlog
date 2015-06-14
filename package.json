@@ -1,0 +1,23 @@
+{
+  "name": "steam-backlog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "request": "^2.57.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loganfranken/steam-backlog"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loganfranken/steam-backlog/issues"
+  },
+  "homepage": "https://github.com/loganfranken/steam-backlog"
+}
