@@ -9,15 +9,10 @@ function getSteamId(username, callback) {
             + '?key=' + config.apiKey
             + '&vanityurl=' + config.username;
 
-  request(url, function (error, response, body) {
+  getJson(url, function(response) {
 
-    if (!error && response.statusCode == 200) {
-
-      var parsedResponse = JSON.parse(body);
-      var id = parsedResponse.response.steamid;
-      callback(id);
-
-    }
+    var id = response.response.steamid;
+    callback(id);
 
   });
 
@@ -31,19 +26,35 @@ function getGameList(steamId) {
             + '&include_appinfo=1'
             + '&format=json';
 
+  getJson(url, function(response) {
+
+    console.log(response);
+
+  });
+
+}
+
+function getJson(url, callback) {
+
   request(url, function (error, response, body) {
 
-    if (!error && response.statusCode == 200) {
+    if(error) {
 
-      /*
-      var parsedResponse = JSON.parse(body);
-      var id = parsedResponse.response;
-      callback(id);
-      */
-
-      console.log(body);
+      console.log(error);
+      return;
 
     }
+
+    if(response.statusCode != 200) {
+
+      throw "Received status code " + response.statusCode
+              + " while retrieving " + url;
+      return;
+
+    }
+
+    var parsedResponse = JSON.parse(body);
+    callback(parsedResponse);
 
   });
 
