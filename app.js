@@ -1,7 +1,19 @@
 var request = require('request');
 var config = require('./config');
 
-var steamId = getSteamId(config.username, getGameList);
+var steamId = getSteamId(
+
+  config.username,
+
+  function(steamId) {
+
+    getGameList(steamId, function(games) {
+
+      storeGameList(games);
+
+    })
+  }
+);
 
 function getSteamId(username, callback) {
 
@@ -11,14 +23,14 @@ function getSteamId(username, callback) {
 
   getJson(url, function(response) {
 
-    var id = response.response.steamid;
+    var id = response.steamid;
     callback(id);
 
   });
 
 }
 
-function getGameList(steamId) {
+function getGameList(steamId, callback) {
 
   var url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
             + '?key=' + config.apiKey
@@ -28,9 +40,24 @@ function getGameList(steamId) {
 
   getJson(url, function(response) {
 
-    console.log(response);
+    var games = response.games;
+    callback(games);
 
   });
+
+}
+
+function storeGameList(gameList) {
+
+  console.log(gameList);
+  // TODO: Implement
+
+}
+
+function getGameLength(gameName) {
+
+  console.log(gameName);
+  // TODO: Implement
 
 }
 
@@ -54,7 +81,7 @@ function getJson(url, callback) {
     }
 
     var parsedResponse = JSON.parse(body);
-    callback(parsedResponse);
+    callback(parsedResponse.response);
 
   });
 
