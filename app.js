@@ -1,19 +1,28 @@
 var request = require('request');
 var config = require('./config');
 
+/*
 var steamId = getSteamId(
 
   config.username,
 
-  function(steamId) {
+  function(steamId) { console.log(steamId);
 
     getGameList(steamId, function(games) {
 
       storeGameList(games);
 
     })
+
   }
 );
+*/
+
+searchHltb("Bioshock Infinite", function(response) {
+
+  console.log(response);
+
+});
 
 function getSteamId(username, callback) {
 
@@ -58,6 +67,34 @@ function getGameLength(gameName) {
 
   console.log(gameName);
   // TODO: Implement
+
+}
+
+function searchHltb(gameName, callback) {
+
+  var url = 'http://howlongtobeat.com/search_main.php?page=1&queryString=' + gameName;
+
+  request(url, function (error, response, body) {
+
+    if(error) {
+
+      console.log(error);
+      return;
+
+    }
+
+    if(response.statusCode != 200) {
+
+      throw "Received status code " + response.statusCode
+              + " while retrieving " + url;
+      return;
+
+    }
+
+    callback(body);
+    // TODO: Parse HTML
+
+  });
 
 }
 
