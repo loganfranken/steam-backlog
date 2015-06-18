@@ -1,4 +1,6 @@
+var cheerio = require('cheerio');
 var request = require('request');
+
 var config = require('./config');
 
 /*
@@ -20,7 +22,7 @@ var steamId = getSteamId(
 
 searchHltb("Bioshock Infinite", function(response) {
 
-  console.log(response);
+  var searchPage = cheerio.load(response);
 
 });
 
@@ -72,9 +74,20 @@ function getGameLength(gameName) {
 
 function searchHltb(gameName, callback) {
 
-  var url = 'http://howlongtobeat.com/search_main.php?page=1&queryString=' + gameName;
+  var url = 'http://howlongtobeat.com/search_main.php?page=1';
 
-  request(url, function (error, response, body) {
+  request.post(url,
+    {form:
+      {
+        'queryString': gameName,
+        't': 'games',
+        'sorthead': 'popular',
+        'sortd': 'Normal Order',
+        'plat': '',
+        'detail': '0'
+      }
+    },
+    function (error, response, body) {
 
     if(error) {
 
@@ -92,7 +105,6 @@ function searchHltb(gameName, callback) {
     }
 
     callback(body);
-    // TODO: Parse HTML
 
   });
 
