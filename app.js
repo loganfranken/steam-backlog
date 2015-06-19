@@ -36,38 +36,6 @@ getGameLength("Bioshock Infinite", function(length) {
   console.log(length);
 });
 
-function getSteamId(username, callback) {
-
-  var url = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
-            + '?key=' + config.apiKey
-            + '&vanityurl=' + config.username;
-
-  getJson(url, function(response) {
-
-    var id = response.steamid;
-    callback(id);
-
-  });
-
-}
-
-function getGameList(steamId, callback) {
-
-  var url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
-            + '?key=' + config.apiKey
-            + '&steamid=' + steamId
-            + '&include_appinfo=1'
-            + '&format=json';
-
-  getJson(url, function(response) {
-
-    var games = response.games;
-    callback(games);
-
-  });
-
-}
-
 function getGameLength(gameName, callback) {
 
   var url = 'http://howlongtobeat.com/search_main.php?page=1';
@@ -93,17 +61,6 @@ function getGameLength(gameName, callback) {
     var gameLength = parseFloat(rawGameLength);
 
     callback(gameLength);
-
-  });
-
-}
-
-function getJson(url, callback) {
-
-  request(url, function (error, response, body) {
-
-    var parsedResponse = JSON.parse(body);
-    callback(parsedResponse.response);
 
   });
 
