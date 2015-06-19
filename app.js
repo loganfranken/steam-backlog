@@ -81,21 +81,6 @@ function getHltbId(gameName, callback) {
     },
     function (error, response, body) {
 
-    if(error) {
-
-      console.log(error);
-      return;
-
-    }
-
-    if(response.statusCode != 200) {
-
-      throw "Received status code " + response.statusCode
-              + " while retrieving " + url;
-      return;
-
-    }
-
     var searchPage = cheerio.load(response.body);
     var gameUrl = searchPage('#suggestionsList_main a:first-child').attr('href');
     var gameId = gameUrl.replace('game.php?id=', '');
@@ -112,21 +97,6 @@ function getHltbLength(gameId, callback) {
 
   request(url, function (error, response, body) {
 
-    if(error) {
-
-      console.log(error);
-      return;
-
-    }
-
-    if(response.statusCode != 200) {
-
-      throw "Received status code " + response.statusCode
-              + " while retrieving " + url;
-      return;
-
-    }
-
     var gamePage = cheerio.load(response.body);
     var gameTime = gamePage('.gprofile_times .time_100:first-child div').text();
 
@@ -139,21 +109,6 @@ function getHltbLength(gameId, callback) {
 function getJson(url, callback) {
 
   request(url, function (error, response, body) {
-
-    if(error) {
-
-      console.log(error);
-      return;
-
-    }
-
-    if(response.statusCode != 200) {
-
-      throw "Received status code " + response.statusCode
-              + " while retrieving " + url;
-      return;
-
-    }
 
     var parsedResponse = JSON.parse(body);
     callback(parsedResponse.response);
