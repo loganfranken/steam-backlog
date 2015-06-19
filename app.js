@@ -21,7 +21,13 @@ var steamId = getSteamId(
 */
 
 getHltbId("Bioshock Infinite", function(id) {
-  console.log(id);
+
+  getHltbLength(id, function(length) {
+
+    console.log(length);
+
+  });
+
 });
 
 function getSteamId(username, callback) {
@@ -106,7 +112,37 @@ function getHltbId(gameName, callback) {
     var gameUrl = searchPage('#suggestionsList_main a:first-child').attr('href');
     var gameId = gameUrl.replace('game.php?id=', '');
 
-    callback(body);
+    callback(gameId);
+
+  });
+
+}
+
+function getHltbLength(gameId, callback) {
+
+  var url = 'http://howlongtobeat.com/game_main.php?id=' + gameId;
+
+  request(url, function (error, response, body) {
+
+    if(error) {
+
+      console.log(error);
+      return;
+
+    }
+
+    if(response.statusCode != 200) {
+
+      throw "Received status code " + response.statusCode
+              + " while retrieving " + url;
+      return;
+
+    }
+
+    var gamePage = cheerio.load(response.body);
+    var gameTime = gamePage('.gprofile_times .time_100:first-child div').text();
+
+    callback(gameTime);
 
   });
 
