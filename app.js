@@ -25,6 +25,5 @@ steam.getSteamGameListByUsername(config.apiKey, config.username,
 
 );
 
-// TODO: Add README
 // TODO: Sort list
 // TODO: Calculate Remaining Hours (based on played hours)
