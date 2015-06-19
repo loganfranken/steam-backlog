@@ -6,7 +6,7 @@ steam.getSteamGameListByUsername(config.apiKey, config.username,
 
   function(gameList) {
 
-    var smallGameList = gameList.slice(0, 3);
+    var smallGameList = gameList.slice(0, 5);
     smallGameList.forEach(function(game, i) {
 
       hltb.getGameLength(game.name, function(gameLength) {
