@@ -1,7 +1,5 @@
 var request = require('request');
 
-var config = require('./config');
-
 /* Retrieves the Steam ID associated with a given username */
 function getSteamId(apiKey, username, callback) {
 
@@ -73,5 +71,6 @@ function getJson(url, callback) {
 
 module.exports = {
   getSteamId: getSteamId,
-  getSteamGameList: getSteamGameList
-}
+  getSteamGameList: getSteamGameList,
+  getSteamGameListByUsername: getSteamGameListByUsername
+};
