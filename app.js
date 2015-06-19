@@ -15,20 +15,11 @@ steam.getSteamGameListByUsername(config.apiKey, config.username,
         return;
       }
 
-      console.log(game.name);
-
-    });
-
-    /*
-    var smallGameList = gameList.slice(0, 5);
-    smallGameList.forEach(function(game, i) {
-
       hltb.getGameLength(game.name, function(gameLength) {
-         console.log(game.name + ": " + gameLength);
+        console.log(game.name + ": " + gameLength);
       });
 
     });
-    */
 
   }
 
