@@ -28,13 +28,13 @@ function getGameLength(gameName, callback) {
 
       var searchPage = cheerio.load(response.body);
 
-      var rawGameLength = searchPage('.gamelist_list li').first().find('.time_100').first().text();
+      var rawGameLength = searchPage('.gamelist_list li').first().find('.gamelist_tidbit').eq(1).text();
       rawGameLength = rawGameLength.replace(' Hours', '').replace('½', '.5');
 
       var gameLength = parseFloat(rawGameLength);
 
       if(!gameLength) {
-        throw "Game length could not be retrieved";
+        gameLength = null;
       }
 
       callback(gameLength);
