@@ -20,6 +20,7 @@ var steamId = getSteamId(
 );
 */
 
+/*
 getHltbId("Bioshock Infinite", function(id) {
 
   getHltbLength(id, function(length) {
@@ -29,6 +30,7 @@ getHltbId("Bioshock Infinite", function(id) {
   });
 
 });
+*/
 
 function getSteamId(username, callback) {
 
@@ -59,20 +61,6 @@ function getGameList(steamId, callback) {
     callback(games);
 
   });
-
-}
-
-function storeGameList(gameList) {
-
-  console.log(gameList);
-  // TODO: Implement
-
-}
-
-function getGameLength(gameName) {
-
-  console.log(gameName);
-  // TODO: Implement
 
 }
 
