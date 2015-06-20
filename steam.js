@@ -58,6 +58,10 @@ function getJson(url, callback) {
 
   request(url, function (error, response, body) {
 
+    if(error) {
+      throw "Request to " + url + " encountered error " + error;
+    }
+
     if(response.statusCode != 200) {
       throw "Request to " + url + " returned status code " + response.statusCode;
     }
