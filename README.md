@@ -4,7 +4,7 @@ This is a small utility I wrote for myself to pair my
 [Steam](http://store.steampowered.com/) library with stats from
 [HowLongToBeat](http://howlongtobeat.com/).
 
-Basically, I wanted to see which games in my backlog would take the shortest
+I wanted to see which games in my backlog would take the shortest
 amount of time to complete so that I could play those first.
 
 Listen, I don't think optimizing your list of recreational activities is really
@@ -57,6 +57,9 @@ particular game.
 `remaining` is equal to the difference between `length` and `played`.
 
 The list is sorted by `remaining`.
+
+Episodic games (like "Kentucky Route Zero" and "The Walking Dead") will always
+have a length value of "N/A".
 
 ## License
 
