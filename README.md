@@ -18,34 +18,45 @@ the healthiest thing, but here we are.
 4. Fill out `config.js` with your information
 5. Run `node app.js`
 
-You'll get a list like the following:
+You'll get a table printed to the console like the following:
 
 ```
-Myst: Masterpiece Edition: 7
-Bastion: 6.5
-Dead Island: 18
-The Binding of Isaac: 10.5
-Super Meat Boy: 11
-From Dust: 7
-Dustforce: 32.5
-FTL: Faster Than Light: 10.5
-The Elder Scrolls V: Skyrim: 31.5
-Cave Story+: 6
-Dishonored: 12.5
-Mark of the Ninja: 8
-Spelunky: 18
-The Walking Dead: null
-FEZ: 6
-XCOM: Enemy Unknown: 25.5
-Kentucky Route Zero: null
-Antichamber: 5.5
-Quantum Conundrum: 6
-Don't Starve: 35
-Fallout: 17
-Fallout 2: 31
-FINAL FANTASY VII: 39.5
-Fallout: New Vegas: 29
+name                         length  played  remaining
+---------------------------  ------  ------  ---------
+Kentucky Route Zero          N/A     2       0
+Bastion                      6.5     10      0
+The Walking Dead             N/A     0       0
+FEZ                          6       5       1
+Antichamber                  5.5     2       3.5
+Cave Story+                  6       0       6
+Quantum Conundrum            6       0       6
+Myst: Masterpiece Edition    7       0       7
+From Dust                    7       0       7
+The Binding of Isaac         10.5    3       7.5
+Mark of the Ninja            8       0       8
+Super Meat Boy               11      1       10
+FTL: Faster Than Light       10.5    0       10.5
+Dishonored                   12.5    0       12.5
+Spelunky                     18      5       13
+Dead Island                  18      4       14
+Fallout                      17      0       17
+XCOM: Enemy Unknown          25.5    0       25.5
+Fallout: New Vegas           29      0       29
+The Elder Scrolls V: Skyrim  31.5    1       30.5
+Fallout 2                    31      0       31
+FINAL FANTASY VII            39.5    8       31.5
+Dustforce                    32.5    0       32.5
+Don't Starve                 35      0       35
 ```
+
+`length` is equal to the "Main Story" value from HowLongToBeat.
+
+`played` is equal to how many hours Steam reports that you have played a
+particular game.
+
+`remaining` is equal to the difference between `length` and `played`.
+
+The list is sorted by `remaining`.
 
 ## License
 
