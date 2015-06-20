@@ -55,7 +55,23 @@ steam.getSteamGameListByUsername(config.apiKey, config.username,
 );
 
 function displayBacklogList() {
+
+  backlog.sort(function(a, b) {
+
+    if(a.remaining > b.remaining) {
+      return 1;
+    }
+
+    if(a.remaining - b.remaining) {
+      return -1;
+    }
+
+    return 0;
+
+  });
+
   console.table(backlog);
+
 }
 
-// TODO: Sort list
+// TODO: Rewrite using promises
