@@ -26,11 +26,16 @@ steam.getSteamGameListByUsername(config.apiKey, config.username,
       hltb.getGameLength(game.name, function(gameLength) {
 
         var played = Math.round(game.playtime_forever/60);
+
         var remaining = (gameLength - played);
+
+        if(remaining < 0) {
+          remaining = 0;
+        }
 
         backlog.push({
           name: game.name,
-          length: gameLength,
+          length: (gameLength == null) ? "N/A" : gameLength,
           played: played,
           remaining: remaining
         });
