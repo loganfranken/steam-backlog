@@ -1,4 +1,4 @@
-require('./es6-array-include')();
+require('./es6-array-include');
 require('console.table');
 
 var steam = require('./steam');
@@ -66,10 +66,8 @@ steam.getSteamGameListByUsername(config.apiKey, config.username).then(
       Promise
         .all(gameList.map(getGameLength).filter(filterUndefined))
         .then(function(backlog) {
-
           sortBacklog(backlog);
           console.table(backlog);
-
         });
 
     }

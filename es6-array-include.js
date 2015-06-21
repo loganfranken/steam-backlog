@@ -1,5 +1,5 @@
 // Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
-module.exports = function() {
+(function() {
 
   if (![].includes) {
   Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
@@ -30,4 +30,4 @@ module.exports = function() {
   };
 }
 
-};
+})();
