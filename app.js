@@ -1,8 +1,8 @@
-require('./es6-array-include');
+require('./lib/es6-array-include');
 require('console.table');
 
-var steam = require('./steam');
-var hltb = require('./hltb');
+var steam = require('./lib/steam');
+var hltb = require('./lib/hltb');
 
 var config = require('./config');
 
