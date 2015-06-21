@@ -41,7 +41,7 @@ function getSteamGameList(apiKey, steamId) {
       var games = response.games;
 
       if(!games) {
-        throw "Games could not be retrieved";
+        reject("Games could not be retrieved");
       }
 
       resolve(games);
@@ -73,11 +73,11 @@ function getJson(url) {
     request(url, function (error, response, body) {
 
       if(error) {
-        throw "Request to " + url + " encountered error " + error;
+        reject("Request to " + url + " encountered error " + error);
       }
 
       if(response.statusCode != 200) {
-        throw "Request to " + url + " returned status code " + response.statusCode;
+        reject("Request to " + url + " returned status code " + response.statusCode);
       }
 
       var parsedResponse = JSON.parse(body);

@@ -6,55 +6,42 @@ var hltb = require('./hltb');
 
 var config = require('./config');
 
-var backlog = [];
+function getGameLength(game) {
 
-steam.getSteamGameListByUsername(config.apiKey, config.username).then(
+  if(config.exclude.includes(game.name)) {
+    return;
+  }
 
-  function(gameList) {
+  return new Promise(function(resolve, reject) {
 
-    var totalGameCount = 0;
-    var gameCount = 0;
+    hltb.getGameLength(game.name).then(function(gameLength) {
 
-    gameList.forEach(function(game, i) {
+      var played = Math.round(game.playtime_forever/60);
 
-      if(config.exclude.includes(game.name)) {
-        return;
+      var remaining = (gameLength - played);
+
+      if(remaining < 0) {
+        remaining = 0;
       }
 
-      totalGameCount++;
-
-      hltb.getGameLength(game.name, function(gameLength) {
-
-        var played = Math.round(game.playtime_forever/60);
-
-        var remaining = (gameLength - played);
-
-        if(remaining < 0) {
-          remaining = 0;
-        }
-
-        backlog.push({
-          name: game.name,
-          length: (gameLength == null) ? "N/A" : gameLength,
-          played: played,
-          remaining: remaining
-        });
-
-        gameCount++;
-
-        if(gameCount >= totalGameCount) {
-          displayBacklogList();
-        }
-
+      resolve({
+        name: game.name,
+        length: (gameLength == null) ? "N/A" : gameLength,
+        played: played,
+        remaining: remaining
       });
 
     });
 
-  }
+  });
 
-);
+}
 
-function displayBacklogList() {
+function filterUndefined(input) {
+  return input;
+}
+
+function sortBacklog(backlog) {
 
   backlog.sort(function(a, b) {
 
@@ -70,8 +57,21 @@ function displayBacklogList() {
 
   });
 
-  console.table(backlog);
-
 }
 
-// TODO: Rewrite using promises
+steam.getSteamGameListByUsername(config.apiKey, config.username).then(
+
+    function(gameList) {
+
+      Promise
+        .all(gameList.map(getGameLength).filter(filterUndefined))
+        .then(function(backlog) {
+
+          sortBacklog(backlog);
+          console.table(backlog);
+
+        });
+
+    }
+
+);

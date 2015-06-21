@@ -1,45 +1,50 @@
 var cheerio = require('cheerio');
 var request = require('request');
 
-function getGameLength(gameName, callback) {
+/* Retrieves the length of a game from How Long to Beat */
+function getGameLength(gameName) {
 
-  if(!gameName) {
-    throw "No game name provided";
-  }
+  return new Promise(function(resolve, reject) {
 
-  var url = 'http://howlongtobeat.com/search_main.php?page=1';
+    if(!gameName) {
+      reject("No game name provided");
+    }
 
-  request.post(url,
-    {form:
-      {
-        'queryString': gameName,
-        't': 'games',
-        'sorthead': 'popular',
-        'sortd': 'Normal Order',
-        'plat': '',
-        'detail': '0'
-      }
-    },
-    function (error, response, body) {
+    var url = 'http://howlongtobeat.com/search_main.php?page=1';
 
-      if(response.statusCode != 200) {
-        throw "Request to " + url + " returned status code " + response.statusCode;
-      }
+    request.post(url,
+      {form:
+        {
+          'queryString': gameName,
+          't': 'games',
+          'sorthead': 'popular',
+          'sortd': 'Normal Order',
+          'plat': '',
+          'detail': '0'
+        }
+      },
+      function (error, response, body) {
 
-      var searchPage = cheerio.load(response.body);
+        if(response.statusCode != 200) {
+          reject("Request to " + url + " returned status code " + response.statusCode);
+        }
 
-      var rawGameLength = searchPage('.gamelist_list li').first().find('.gamelist_tidbit').eq(1).text();
-      rawGameLength = rawGameLength.replace(' Hours', '').replace('½', '.5');
+        var searchPage = cheerio.load(response.body);
 
-      var gameLength = parseFloat(rawGameLength);
+        var rawGameLength = searchPage('.gamelist_list li').first().find('.gamelist_tidbit').eq(1).text();
+        rawGameLength = rawGameLength.replace(' Hours', '').replace('½', '.5');
 
-      if(!gameLength) {
-        gameLength = null;
-      }
+        var gameLength = parseFloat(rawGameLength);
 
-      callback(gameLength);
+        if(!gameLength) {
+          gameLength = null;
+        }
 
-    });
+        resolve(gameLength);
+
+      });
+
+  });
 
 }
 
