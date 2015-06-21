@@ -1,73 +1,89 @@
 var request = require('request');
 
 /* Retrieves the Steam ID associated with a given username */
-function getSteamId(apiKey, username, callback) {
+function getSteamId(apiKey, username) {
 
-  var url = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
-            + '?key=' + apiKey
-            + '&vanityurl=' + username;
+  return new Promise(function(resolve, reject) {
 
-  getJson(url, function(response) {
+    var url = 'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/'
+              + '?key=' + apiKey
+              + '&vanityurl=' + username;
 
-    var id = response.steamid;
+    getJson(url).then(function(response) {
 
-    if(!id) {
-      throw "Steam ID could not be retrieved";
-    }
+      var id = response.steamid;
 
-    callback(id);
+      if(!id) {
+        reject("Steam ID could not be retrieved");
+      }
+
+      resolve(id);
+
+    });
 
   });
 
 }
 
 /* Returns the list of games owned by the user with a given Steam ID */
-function getSteamGameList(apiKey, steamId, callback) {
+function getSteamGameList(apiKey, steamId) {
 
-  var url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
-            + '?key=' + apiKey
-            + '&steamid=' + steamId
-            + '&include_appinfo=1'
-            + '&format=json';
+  return new Promise(function(resolve, reject) {
 
-  getJson(url, function(response) {
+    var url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/'
+              + '?key=' + apiKey
+              + '&steamid=' + steamId
+              + '&include_appinfo=1'
+              + '&format=json';
 
-    var games = response.games;
+    getJson(url).then(function(response) {
 
-    if(!games) {
-      throw "Games could not be retrieved";
-    }
+      var games = response.games;
 
-    callback(games);
+      if(!games) {
+        throw "Games could not be retrieved";
+      }
+
+      resolve(games);
+
+    });
 
   });
 
 }
 
 /* Returns the list of games owned by the user with a given username */
-function getSteamGameListByUsername(apiKey, username, callback) {
+function getSteamGameListByUsername(apiKey, username) {
 
-  getSteamId(apiKey, username, function(steamId) {
-    getSteamGameList(apiKey, steamId, callback);
+  return new Promise(function(resolve, reject) {
+
+    getSteamId(apiKey, username).then(function(steamId) {
+      resolve(getSteamGameList(apiKey, steamId));
+    });
+
   });
 
 }
 
 /* Makes a JSON request and executes a callback with the parsed response */
-function getJson(url, callback) {
+function getJson(url) {
 
-  request(url, function (error, response, body) {
+  return new Promise(function(resolve, reject) {
 
-    if(error) {
-      throw "Request to " + url + " encountered error " + error;
-    }
+    request(url, function (error, response, body) {
 
-    if(response.statusCode != 200) {
-      throw "Request to " + url + " returned status code " + response.statusCode;
-    }
+      if(error) {
+        throw "Request to " + url + " encountered error " + error;
+      }
 
-    var parsedResponse = JSON.parse(body);
-    callback(parsedResponse.response);
+      if(response.statusCode != 200) {
+        throw "Request to " + url + " returned status code " + response.statusCode;
+      }
+
+      var parsedResponse = JSON.parse(body);
+      resolve(parsedResponse.response);
+
+    });
 
   });
 

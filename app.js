@@ -8,7 +8,7 @@ var config = require('./config');
 
 var backlog = [];
 
-steam.getSteamGameListByUsername(config.apiKey, config.username,
+steam.getSteamGameListByUsername(config.apiKey, config.username).then(
 
   function(gameList) {
 
