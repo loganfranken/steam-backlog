@@ -16,7 +16,7 @@ the healthiest thing, but here we are.
 2. Run `npm install`
 3. Rename `config.example.js` to `config.js`
 4. Fill out `config.js` with your information
-5. Run `node app.js`
+5. Run `npm start`
 
 You'll get a table printed to the console like the following:
 

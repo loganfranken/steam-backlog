@@ -1,7 +1,7 @@
 {
   "name": "steam-backlog",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a small utility I wrote for myself to pair my Steam library with stats from HowLongToBeat.",
   "main": "app.js",
   "dependencies": {
     "cheerio": "^0.19.0",
@@ -10,14 +10,14 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/loganfranken/steam-backlog"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Logan Franken",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/loganfranken/steam-backlog/issues"
   },
