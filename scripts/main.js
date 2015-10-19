@@ -17,8 +17,9 @@ function getGameLength(game) {
     hltb.getGameLength(game.name).then(function(gameLengths) {
 
       var gameLength = selectGameLength(gameLengths);
+      var playedOffset = getPlayedOffset(game.name);
 
-      var played = Math.round(game.playtime_forever/60);
+      var played = Math.round(game.playtime_forever/60) - playedOffset;
 
       var remaining = (gameLength - played);
 
@@ -80,6 +81,13 @@ function selectGameLength(gameLengths) {
   }
 
   return null;
+
+}
+
+function getPlayedOffset(gameName) {
+
+  var offset = config.playedOffsets[gameName];
+  return offset ? offset : 0;
 
 }
 
