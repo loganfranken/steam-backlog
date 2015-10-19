@@ -61,6 +61,15 @@ The list is sorted by `remaining`.
 Episodic games (like "Kentucky Route Zero" and "The Walking Dead") will always
 have a length value of "N/A".
 
+## Preview
+
+To view the list of games that will be queried (the list of Steam games *sans*
+the games excluded in your `config.js`), run the following command:
+
+```js
+npm run preview
+```
+
 ## License
 
 [MIT License](http://opensource.org/licenses/MIT)
