@@ -1,10 +1,10 @@
-require('./lib/es6-array-include');
+require('../lib/es6-array-include');
 require('console.table');
 
-var steam = require('./lib/steam');
-var hltb = require('./lib/hltb');
+var steam = require('../lib/steam');
+var hltb = require('../lib/hltb');
 
-var config = require('./config');
+var config = require('../config');
 
 function getGameLength(game) {
 

@@ -10,7 +10,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node app.js"
+    "start": "node scripts/main.js",
+    "preview": "node scripts/preview.js"
   },
   "repository": {
     "type": "git",
