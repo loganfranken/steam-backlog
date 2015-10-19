@@ -14,7 +14,9 @@ function getGameLength(game) {
 
   return new Promise(function(resolve, reject) {
 
-    hltb.getGameLength(game.name).then(function(gameLength) {
+    hltb.getGameLength(game.name).then(function(gameLengths) {
+
+      var gameLength = selectGameLength(gameLengths);
 
       var played = Math.round(game.playtime_forever/60);
 
@@ -56,6 +58,28 @@ function sortBacklog(backlog) {
     return 0;
 
   });
+
+}
+
+function selectGameLength(gameLengths) {
+
+  if(gameLengths.main != null) {
+    return gameLengths.main;
+  }
+
+  if(gameLengths.mainExtras != null) {
+    return gameLengths.mainExtras;
+  }
+
+  if(gameLengths.combined != null) {
+    return gameLengths.combined;
+  }
+
+  if(gameLengths.completionist != null) {
+    return gameLengths.completionist;
+  }
+
+  return null;
 
 }
 
